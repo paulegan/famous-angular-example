@@ -1,0 +1,12 @@
+<div class="view-header">
+  <h1>{{ title }}</h1>
+</div>
+
+<div>
+  <div ng-repeat="item in items" class="item" ng-click="itemClickHandler($event, item.id)">
+    <img ng-src="{{ item.image }}"/>
+    <div class="overlay">
+      <h2>{{ item.title }}</h2>
+    </div>
+  </div>
+</div>

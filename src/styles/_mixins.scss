@@ -1,0 +1,16 @@
+@mixin center-origin {
+  transform: translate(-50%, -50%);
+}
+
+@mixin background {
+  background-color: $dark-blue;
+  background-image: linear-gradient(45deg, $dark-blue 50%, rgba(0,0,0,0.1) 50%);
+  $block-size: (100vw / 5);   // 5 blocks/triangles across
+  background-size: $block-size $block-size;
+}
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}

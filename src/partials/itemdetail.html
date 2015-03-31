@@ -1,0 +1,17 @@
+<div class="item header">
+  <img ng-src="{{ item.image }}"/>
+  <div class="overlay">
+    <h2>{{ item.title }}</h2>
+  </div>
+</div>
+
+<div class="item-meta">
+  <div class="desc" ng-bind-html="item.description">
+  </div>
+  <div class="date">
+    {{ item.date }}
+  </div>
+  <div class="user">
+    by {{ item.user }}
+  </div>
+</div>

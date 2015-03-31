@@ -1,0 +1,8 @@
+.DS_Store
+.tmp
+.sass-cache
+
+/node_modules
+/src/bower_components
+/src/styles/app.css
+/www
