@@ -1,6 +1,9 @@
 'use strict';
 
 angular.module('example-app', ['ui.router', 'ngResource', 'famous.angular'])
+  .constant('AppConfig', {
+    viewTransitionDuration: 300
+  })
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('splash', {

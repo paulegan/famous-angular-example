@@ -22,7 +22,7 @@
   </head>
   <body>
     <fa-app class="full-screen">
-      <div ui-view id="main-view">
+      <div ui-view id="main-view" fa-animate-enter="viewEnterAnimation($done)" fa-animate-leave="viewLeaveAnimation($done)">
         <div id="splash">
           <h1>Example App</h1>
         </div>
@@ -42,6 +42,7 @@
     <!-- build:js scripts/app.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/services.js"></script>
+    <script src="scripts/base.js"></script>
     <script src="scripts/splash.js"></script>
     <script src="scripts/itemlist.js"></script>
     <script src="scripts/itemdetail.js"></script>

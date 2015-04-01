@@ -46,7 +46,6 @@ angular.module('example-app')
           cache: true,
           transformResponse: function (data) {
             var photo = data.photo;
-            console.log(photo);
             return {
               id: photo.id,
               title: photo.title._content,

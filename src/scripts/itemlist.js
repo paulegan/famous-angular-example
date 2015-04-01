@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('example-app')
-  .controller('ItemListCtrl', function($scope, $state, $famous, ItemService) {
+  .controller('ItemListCtrl', function($scope, $state, $famous, $controller, AppConfig, ItemService) {
     var query = $state.params.q || 'example';
 
     $scope.title = 'Items matching "' + query + '"';
@@ -15,4 +15,6 @@ angular.module('example-app')
     };
 
     $scope.scrollEventHandler = new $famous['famous/core/EventHandler']();
+
+    angular.extend(this, $controller('BaseCtrl', {$scope: $scope, $famous: $famous, AppConfig: AppConfig}));
   });
