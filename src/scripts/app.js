@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('example-app', ['ui.router', 'ngResource'])
+angular.module('example-app', ['ui.router', 'ngResource', 'famous.angular'])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('splash', {
@@ -22,5 +22,9 @@ angular.module('example-app', ['ui.router', 'ngResource'])
     $urlRouterProvider.otherwise('/');
   })
   .run(function ($rootScope, $window, $sce) {
+    var doc = $window.document.documentElement;
+    $rootScope.screenSize = [doc.clientWidth, doc.clientHeight];
+    $rootScope.Math = $window.Math;
+
     $rootScope.splashContent = $sce.trustAsHtml($window.document.getElementById('main-view').innerHTML);
   });

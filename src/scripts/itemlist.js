@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('example-app')
-  .controller('ItemListCtrl', function($scope, $state, ItemService) {
+  .controller('ItemListCtrl', function($scope, $state, $famous, ItemService) {
     var query = $state.params.q || 'example';
 
     $scope.title = 'Items matching "' + query + '"';
@@ -13,4 +13,6 @@ angular.module('example-app')
     $scope.itemClickHandler = function (event, itemId) {
       $state.go('itemdetail', {item: itemId});
     };
+
+    $scope.scrollEventHandler = new $famous['famous/core/EventHandler']();
   });

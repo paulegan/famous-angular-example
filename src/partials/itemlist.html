@@ -1,12 +1,19 @@
-<div class="view-header">
-  <h1>{{ title }}</h1>
-</div>
+<fa-view>
+  <fa-modifier fa-size="screenSize">
+    <fa-header-footer-layout fa-options="{headerSize: 50}">
 
-<div>
-  <div ng-repeat="item in items" class="item" ng-click="itemClickHandler($event, item.id)">
-    <img ng-src="{{ item.image }}"/>
-    <div class="overlay">
-      <h2>{{ item.title }}</h2>
-    </div>
-  </div>
-</div>
+      <fa-surface class="view-header">
+        <h1>{{ title }}</h1>
+      </fa-surface>
+
+      <fa-scroll-view fa-pipe-from="scrollEventHandler">
+        <fa-view ng-repeat="item in items">
+          <fa-modifier fa-size="[undefined, Math.floor(screenSize[0] / 32 * 15)]">
+            <ng-include src="'partials/itemhead.html'"></ng-include>
+          </fa-modifier>
+        </fa-view>
+      </fa-scroll-view>
+
+    </fa-header-footer>
+  </fa-modifier>
+</fa-view>
