@@ -1,7 +1,7 @@
 <fa-container-surface
     fa-options="{properties: {overflow: 'hidden'}, classes: ['item']}"
     fa-click="itemClickHandler($event, item.id)"
-    fa-pipe-to="scrollEventHandler">
+    fa-pipe-to="scrollEventHandler" id="item{{ item.id }}">
   <fa-modifier fa-align="[0.5, 0.5]" fa-origin="[0.5, 0.5]">
     <fa-image-surface fa-image-url="{{ item.image }}" fa-size="[undefined, true]">
     </fa-image-surface>

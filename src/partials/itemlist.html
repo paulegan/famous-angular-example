@@ -1,12 +1,12 @@
 <fa-view>
   <fa-modifier fa-size="screenSize" fa-opacity="viewTransition.get()">
-    <fa-header-footer-layout fa-options="{headerSize: 50}">
+    <fa-header-footer-layout fa-options="{headerSize: headerSize}">
 
       <fa-surface class="view-header">
         <h1>{{ title }}</h1>
       </fa-surface>
 
-      <fa-scroll-view fa-pipe-from="scrollEventHandler">
+      <fa-scroll-view fa-pipe-from="scrollEventHandler" id="itemScrollView">
         <fa-view ng-repeat="item in items">
           <fa-modifier fa-size="[undefined, Math.floor(screenSize[0] / 32 * 15)]">
             <ng-include src="'partials/itemhead.html'"></ng-include>

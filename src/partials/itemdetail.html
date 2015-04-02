@@ -1,25 +1,25 @@
 <fa-view>
   <fa-modifier fa-size="screenSize" fa-opacity="viewTransition.get()">
 
-    <fa-modifier fa-translate="[0, 0]">
+    <fa-modifier fa-translate="viewTranslate(viewTransition.get())">
       <fa-sequential-layout>
 
-      <fa-modifier fa-size="[undefined, Math.floor(screenSize[1] * 0.40)]">
-        <ng-include src="'partials/itemhead.html'"></ng-include>
-      </fa-modifier>
+        <fa-modifier fa-size="headSize(viewTransition.get())">
+          <ng-include src="'partials/itemhead.html'"></ng-include>
+        </fa-modifier>
 
-      <fa-modifier fa-size="[undefined, Math.floor(screenSize[1] * 0.60)]">
-        <fa-surface class="item-meta">
-          <div class="desc" ng-bind-html="item.description">
-          </div>
-          <div class="date">
-            {{ item.date }}
-          </div>
-          <div class="user">
-            by {{ item.user }}
-          </div>
-        </fa-surface>
-      </fa-modifier>
+        <fa-modifier fa-size="metaSize(viewTransition.get())">
+          <fa-surface class="item-meta">
+            <div class="desc" ng-bind-html="item.description">
+            </div>
+            <div class="date">
+              {{ item.date }}
+            </div>
+            <div class="user">
+              by {{ item.user }}
+            </div>
+          </fa-surface>
+        </fa-modifier>
 
       </fa-sequential-layout>
     </fa-modifier>
