@@ -14,7 +14,11 @@
     "gulp-jshint": "~1.9.4",
     "gulp-useref": "~1.1.2",
     "gulp-ng-html2js": "~0.2.0",
-    "gulp-inject": "~1.2.0"
+    "gulp-inject": "~1.2.0",
+    "cordova": "~4.3.0",
+    "shelljs": "~0.4.0",
+    "q": "~1.2.0",
+    "which": "~1.0.9"
   },
   "scripts": {
     "install": "bower install",

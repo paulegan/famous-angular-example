@@ -8,6 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="description" content="">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' ; connect-src https: ; img-src 'self' http: https: ; script-src 'self' 'unsafe-eval' https: ; style-src 'self' 'unsafe-inline' ; font-src data:">
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
@@ -49,5 +50,7 @@
     <!-- inject:partials -->
     <!-- endinject -->
     <!-- endbuild -->
+
+    <script src="cordova.js"></script>
   </body>
 </html>
