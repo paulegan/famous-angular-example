@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Famo.us/Angular</title>
+    <link rel="stylesheet" href="https://code.famo.us/famous/latest/famous.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/dark.min.css">
+    <style>
+      html {
+        background-color: rgb(236,231,242);
+      }
+      .slide {
+        background-color: rgb(26,29,51);
+        background-image: linear-gradient(45deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.1) 50%);
+        background-size: 60px 60px;
+        color: white;
+        font-size: 60px;
+        font-family: sans-serif;
+        padding: 60px;
+      }
+      section {
+        display: none;
+      }
+      a {
+        color: white;
+        text-decoration: none;
+      }
+      .title {
+        margin: auto;
+        width: 90%;
+        text-align: center;
+      }
+      h2 {
+        font-size: 60px;
+        margin: 0px;
+      }
+      img {
+        margin: auto;
+        width: 70%;
+        display: block;
+      }
+      pre {
+        margin: 0px;
+      }
+      code {
+        padding: 0px !important;
+        background: none !important;
+        overflow-x: hidden !important;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+
+
+    <section>
+      <div class="title">
+        <h1>A Quick Hike Through the Famo.us/Angular Landscape</h1>
+        <div><a href="https://github.com/paulegan/famous-angular-example">github.com/paulegan/famous-angular-example</a></div>
+      </div>
+    </section>
+
+
+    <section>
+      <img src="landscape.svg">
+    </section>
+
+
+    <section>
+      <a href="http://rawgit.com/paulegan/github-graph/master/index.html?d=examples/ionic.json"><img src="graph.png"></a>
+    </section>
+
+
+    <section>
+      <a href="http://www.google.com/trends/explore#q=%22famo.us%22%2C%20ionic%20framework&date=1%2F2013%2036m&cmpt=q&tz="><img src="trends.jpg"></a>
+      <br>
+      <a href="https://github.com/Famous/famous/graphs/contributors"><img src="activity.jpg"></a>
+    </section>
+
+
+    <section>
+      <h2>Base Angular App</h2>
+      <pre>
+        <code class="javascript">
+angular.module('example-app', ['ui.router', 'ngResource'])
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('itemlist', {
+        url: '/items?q',
+        templateUrl: 'partials/itemlist.html',
+        controller: 'ItemListCtrl'
+      })
+      .state('itemdetail', {
+        url: '/items/:item',
+        templateUrl: 'partials/itemdetail.html',
+        controller: 'ItemDetailCtrl'
+      });
+
+    $urlRouterProvider.otherwise('/');
+  });
+        </code>
+      </pre>
+    </section>
+
+    <section>
+      <h2>Adding Famo.us</h2>
+      <pre>
+        <code class="html">
+&lt;fa-container-surface
+    fa-options="{properties: {overflow: 'hidden'}, classes: ['item']}"
+    fa-click="itemClickHandler($event, item.id)"
+    fa-pipe-to="scrollEventHandler"&gt;
+  &lt;fa-modifier fa-align="[0.5, 0.5]" fa-origin="[0.5, 0.5]"&gt;
+    &lt;fa-image-surface fa-image-url="{{ item.image }}" fa-size="[undefined, true]"&gt;
+    &lt;/fa-image-surface&gt;
+  &lt;/fa-modifier&gt;
+  &lt;fa-modifier fa-align="[1, 1]" fa-origin="[1, 1]" fa-size="[undefined, 70]"&gt;
+    &lt;fa-surface class="overlay"&gt;
+      &lt;h2&gt;{{ item.title }}&lt;/h2&gt;
+    &lt;/fa-surface&gt;
+  &lt;/fa-modifier&gt;
+&lt;/fa-container-surface&gt;
+        </code>
+      </pre>
+    </section>
+
+
+    <section>
+      <h2>Simple Transition</h2>
+      <pre>
+        <code class="diff">
+--- a/src/index.html
++++ b/src/index.html
+@@ -22,7 +22,7 @@
+   &lt;/head&gt;
+   &lt;body&gt;
+     &lt;fa-app class="full-screen"&gt;
+-      &lt;div ui-view id="main-view"&gt;
++      &lt;div ui-view id="main-view" fa-animate-enter="viewEnterAnimation($done)" fa-animate-leave="viewLeaveAnimation($done)"&gt;
+         &lt;div id="splash"&gt;
+           &lt;h1&gt;Example App&lt;/h1&gt;
+         &lt;/div&gt;
+--- a/src/partials/itemlist.html
++++ b/src/partials/itemlist.html
+@@ -1,5 +1,5 @@
+ &lt;fa-view&gt;
+-  &lt;fa-modifier fa-size="screenSize"&gt;
++  &lt;fa-modifier fa-size="screenSize" fa-opacity="viewTransition.get()"&gt;
+     &lt;fa-header-footer-layout fa-options="{headerSize: 50}"&gt;
+
+       &lt;fa-surface class="view-header"&gt;
+        </code>
+      </pre>
+    </section>
+
+
+    <section>
+      <h2>Simple Transition</h2>
+      <pre>
+        <code class="javascript">
+angular.module('example-app')
+  .controller('BaseCtrl', function($scope, $famous, AppConfig) {
+    var Transitionable = $famous['famous/transitions/Transitionable'];
+
+    $scope.viewTransition = new Transitionable(0);
+
+    $scope.viewEnterAnimation = function ($done) {
+      $scope.viewTransition.set(1, {duration: AppConfig.viewTransitionDuration}, $done);
+    };
+
+    $scope.viewLeaveAnimation = function ($done) {
+      $scope.viewTransition.set(0, {duration: AppConfig.viewTransitionDuration}, $done);
+    };
+  });
+        </code>
+      </pre>
+    </section>
+
+
+    <section>
+      <h2>Transition With Movement</h2>
+      <pre>
+        <code class="diff">
+--- a/src/partials/itemdetail.html
++++ b/src/partials/itemdetail.html
+@@ -1,14 +1,14 @@
+ &lt;fa-view&gt;
+   &lt;fa-modifier fa-size="screenSize" fa-opacity="viewTransition.get()"&gt;
+ 
+-    &lt;fa-modifier fa-translate="[0, 0]"&gt;
++    &lt;fa-modifier fa-translate="viewTranslate(viewTransition.get())"&gt;
+       &lt;fa-sequential-layout&gt;
+ 
+-      &lt;fa-modifier fa-size="[undefined, Math.floor(screenSize[1] * 0.40)]"&gt;
++        &lt;fa-modifier fa-size="headSize(viewTransition.get())"&gt;
+           &lt;ng-include src="'partials/itemhead.html'"&gt;&lt;/ng-include&gt;
+         &lt;/fa-modifier&gt;
+ 
+-      &lt;fa-modifier fa-size="[undefined, Math.floor(screenSize[1] * 0.60)]"&gt;
++        &lt;fa-modifier fa-size="metaSize(viewTransition.get())"&gt;
+           &lt;fa-surface class="item-meta"&gt;
+             &lt;div class="desc" ng-bind-html="item.description"&gt;
+             &lt;/div&gt;
+        </code>
+      </pre>
+    </section>
+
+
+    <section>
+      <h2>Transition With Movement</h2>
+      <pre>
+        <code class="javascript">
+$scope.itemClickHandler = function (event, itemId) {
+  var surface = $famous.find('#item' + itemId)[0];
+  var index = surface.index || 0;
+  var scrollOffset = $scope.headerSize - scrollViewNode.getAbsolutePosition();
+  var size = surface.renderNode.getSize();
+  var position = [0, scrollOffset + index * size[1]];
+  $rootScope.selectedItem = {
+    id: itemId,
+    index: index,
+    size: size,
+    position: position,
+    scrollPosition: scrollViewNode.getAbsolutePosition()
+  };
+  $state.go('itemdetail', {item: itemId});
+};
+        </code>
+      </pre>
+    </section>
+
+
+    <section>
+      <h2>Transition With Movement</h2>
+      <pre>
+        <code class="javascript">
+// Image header takes up 40% of screen with meta content taking the other 60%
+var headSize = [$rootScope.screenSize[0], Math.floor($rootScope.screenSize[1] * 0.4)];
+var metaSize = [$rootScope.screenSize[0], $rootScope.screenSize[1] - headSize[1]];
+
+if ($rootScope.selectedItem) {
+  // Transition from selectedItem position & size
+  var pos = $rootScope.selectedItem.position;
+  $scope.viewTranslate = $timeline([
+      [0, [pos[0], pos[1], 100], Easing.inQuad],
+      [1, [0, 0, 100]]
+  ]);
+  $scope.headSize = $timeline([
+      [0, $rootScope.selectedItem.size],
+      [1, headSize]
+  ]);
+  $scope.metaSize = $timeline([
+      [0, [$rootScope.selectedItem.size[0], 0]],
+      [1, metaSize]
+  ]);
+} else {
+  // No transition - stick with fixed position & size
+  $scope.viewTranslate = function () {return [0, 0];};
+  $scope.headSize = function () {return headSize;};
+  $scope.metaSize = function () {return metaSize;};
+}
+        </code>
+      </pre>
+    </section>
+
+
+    <script src="https://code.famo.us/famous/latest/famous-global.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+    <script>
+      hljs.initHighlighting();
+
+      (function () {
+        function translateRight(d) {
+          return famous.core.Transform.translate(window.innerWidth * (1.0 - d), 0, 0);
+        }
+        function translateLeft(d) {
+          return famous.core.Transform.translate(window.innerWidth * d - window.innerWidth, 0, 0);
+        }
+        function moveNext(e) {
+          if ((e.type === 'click' || e.keyIdentifier === 'Right') && currentSlide < slides.length) {
+            currentSlide++;
+            this.inTransformMap = translateRight;
+            this.outTransformMap = translateLeft;
+            this.show(slides[currentSlide]);
+          }
+          if (e.keyIdentifier === 'Left' && currentSlide > 0) {
+            currentSlide--;
+            this.inTransformMap = translateLeft;
+            this.outTransformMap = translateRight;
+            this.show(slides[currentSlide]);
+          }
+        }
+
+        var Engine = famous.core.Engine;
+        var renderController = new famous.views.RenderController();
+        var slides = [].slice.call(document.getElementsByTagName('section')).map(function (e) {
+          return new famous.core.Surface({content: e.innerHTML, classes: ['slide']});
+        });
+        var currentSlide = 0;
+
+        Engine.on('keyup', moveNext.bind(renderController));
+        Engine.on('click', moveNext.bind(renderController));
+        Engine.createContext().add(renderController);
+
+        renderController.show(slides[currentSlide]);
+      })();
+    </script>
+  </body>
+</html>
