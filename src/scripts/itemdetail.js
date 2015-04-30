@@ -1,4 +1,5 @@
 'use strict';
+/*global MouseEvent: true */
 
 angular.module('example-app')
   .controller('ItemDetailCtrl', function($scope, $rootScope, $state, $famous, $timeline, $controller, AppConfig, ItemService) {
@@ -33,6 +34,13 @@ angular.module('example-app')
     ItemService.getItem({'photo_id': $state.params.item}, function (item) {
       $scope.item = item;
     });
+
+    $scope.itemClickHandler = function (event) {
+      // activate on custom touch event only
+      if (!(event instanceof MouseEvent)) {
+        $state.go('itemlist');
+      }
+    };
 
     angular.extend(this, $controller('BaseCtrl', {$scope: $scope, $famous: $famous, AppConfig: AppConfig}));
   });
