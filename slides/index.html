@@ -185,16 +185,16 @@ angular.module('example-app')
 @@ -1,14 +1,14 @@
  &lt;fa-view&gt;
    &lt;fa-modifier fa-size="screenSize" fa-opacity="viewTransition.get()"&gt;
- 
+
 -    &lt;fa-modifier fa-translate="[0, 0]"&gt;
 +    &lt;fa-modifier fa-translate="viewTranslate(viewTransition.get())"&gt;
        &lt;fa-sequential-layout&gt;
- 
+
 -      &lt;fa-modifier fa-size="[undefined, Math.floor(screenSize[1] * 0.40)]"&gt;
 +        &lt;fa-modifier fa-size="headSize(viewTransition.get())"&gt;
            &lt;ng-include src="'partials/itemhead.html'"&gt;&lt;/ng-include&gt;
          &lt;/fa-modifier&gt;
- 
+
 -      &lt;fa-modifier fa-size="[undefined, Math.floor(screenSize[1] * 0.60)]"&gt;
 +        &lt;fa-modifier fa-size="metaSize(viewTransition.get())"&gt;
            &lt;fa-surface class="item-meta"&gt;
@@ -260,6 +260,11 @@ if ($rootScope.selectedItem) {
 }
         </code>
       </pre>
+    </section>
+
+
+    <section>
+      <img src="transition.gif" style="width: 360px">
     </section>
 
 
